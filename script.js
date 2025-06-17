@@ -28,6 +28,15 @@ function showScreen(index) {
         screen.classList.add('fadeInCustom');
         animateSticker(currId);
 
+        // Adiciona o evento do botão "não"
+        if (currId === "proposal-1") {
+            const moveRandomBtn = document.getElementById('move-random');
+            if (moveRandomBtn && !moveRandomBtn._hasMoveEvent) {
+                moveRandomBtn.addEventListener('mouseenter', (e) => moveRandomEl(e.target));
+                moveRandomBtn._hasMoveEvent = true;
+            }
+        }
+
         // Avança sozinho após 5 segundos se for auto-step
         if (autoScreens.includes(currId)) {
             autoTimeout = setTimeout(() => {
@@ -36,10 +45,10 @@ function showScreen(index) {
                 setTimeout(() => nextProposal(), 700);
             }, 5000);
         }
-        
     }
     showLoveTip();
 }
+
 
 function nextProposal() {
     if (autoTimeout) { clearTimeout(autoTimeout); autoTimeout = null; }
