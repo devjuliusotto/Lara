@@ -9,53 +9,103 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-        <div class="container">
-        <div id="Msg1" class="proposal-screen">
-            <div id="Sowrov11" class="sticker"></div>
-            <h1>Lara <span id="JSOrganization-placeholder"></span>! 💖</h1>
-            <p>Simplesmente amo cada momento que passamos juntos até agora, seja esse momento virtual ou físico...</p>
-            <div class="btn">
-                <a href="#" onclick="showProposal('proposal-next')">Próximo</a>
-            </div>
-        </div>
-
-        <div class="container">
-        <div id="Msg2" class="proposal-screen">
-            <div id="Sowrov12" class="sticker"></div>
-            <h1>Lara <span id="JSOrganization-placeholder"></span>! 💖</h1>
-            <p>Nunca pensei que poderia ter tanta certeza de algo tão rápido...</p>
-            <div class="btn">
-                <a href="#" onclick="showProposal('proposal-next')">Próximo</a>
-            </div>
-        </div>
-
-        <div class="container">
-        <div id="Msg3" class="proposal-screen">
-            <div id="Sowrov13" class="sticker"></div>
-            <h1>Lara <span id="JSOrganization-placeholder"></span>! 💖</h1>
-            <p>Mas para oficializar então, eu gostaria de formalizar isso e te fazer uma pergunta muito importante...</p>
-            <div class="btn">
-                <a href="#" onclick="showProposal('proposal-next')">Próximo</a>
-            </div>
-        </div>
-
     <div class="container">
+
+        <!-- Tela 1: Frase de abertura -->
+        <div id="Msg1" class="proposal-screen active">
+            <div class="sticker" id="Sowrov11"></div>
+            <h1>Lara! 💖</h1>
+            <p>Desde que você entrou na minha vida, tudo ficou mais leve, colorido e cheio de sentido.</p>
+            <div class="btn">
+                <a href="#" onclick="nextProposal()">Amei, pode continuar!</a>
+            </div>
+        </div>
+
+        <!-- Tela 2: Quiz -->
+        <div id="Quiz1" class="proposal-screen">
+            <div class="sticker" id="Sowrov12"></div>
+            <h1>Bora ver se você lembra… 🧐</h1>
+            <p>Qual foi o nosso primeiro assunto?</p>
+            <div class="btn">
+                <a href="#" onclick="quizAnswer(false, this)">Igrejas na Alemanha</a>
+                <a href="#" onclick="quizAnswer(false, this)">Comida</a>
+                <a href="#" onclick="quizAnswer(true, this)">Memórias Afetivas/Neve</a>
+            </div>
+            <div id="quiz-feedback" style="margin-top:15px;"></div>
+        </div>
+
+        <!-- Tela 3: Frase romântica -->
+        <div id="Msg2" class="proposal-screen">
+            <div class="sticker" id="Sowrov13"></div>
+            <h1>Lara! 💖</h1>
+            <p>Com você, até os dias nublados têm cor. Você é minha calmaria e minha aventura ao mesmo tempo.</p>
+            <div class="btn">
+                <a href="#" onclick="nextProposal()">Quero mais!</a>
+            </div>
+        </div>
+
+        <!-- Tela 4: Escolha boba -->
+        <div id="Choice1" class="proposal-screen">
+            <div class="sticker" id="Sowrov14"></div>
+            <h1>Pergunta difícil... 🤔</h1>
+            <p>Quem é mais fofo?</p>
+            <div class="btn">
+                <a href="#" onclick="choiceAnswer(this)">Eu 😏</a>
+                <a href="#" onclick="choiceAnswer(this)">Você 🥰</a>
+            </div>
+            <div id="choice-feedback" style="margin-top:15px;"></div>
+        </div>
+
+        <!-- Tela 5: Frase marcante -->
+        <div id="Msg3" class="proposal-screen">
+            <div class="sticker" id="Sowrov15"></div>
+            <h1>Lara! 💖</h1>
+            <p>Quero construir novas memórias com você, colecionar histórias, sorrisos, viagens e domingos preguiçosos.</p>
+            <div class="btn">
+                <a href="#" onclick="nextProposal()">Continua…</a>
+            </div>
+        </div>
+
+        <!-- Tela 6: Caixinha de recado -->
+        <div id="Input1" class="proposal-screen">
+            <div class="sticker" id="Sowrov16"></div>
+            <h1>Deixa um recadinho pra mim? 💌</h1>
+            <p>O que você mais gosta em nós dois juntos?</p>
+            <input type="text" id="love-note" class="input-box" maxlength="120" placeholder="Escreve aqui..." />
+            <div class="btn" style="margin-top: 15px;">
+                <a href="#" onclick="saveNote()">Enviar recado</a>
+            </div>
+            <div id="note-feedback" style="margin-top:15px;"></div>
+        </div>
+
+        <!-- Tela 7: Frase preparação -->
+        <div id="Msg4" class="proposal-screen">
+            <div class="sticker" id="Sowrov17"></div>
+            <h1>Lara! 💖</h1>
+            <p>Agora que já viajei no romantismo, queria te fazer uma pergunta MUITO importante…</p>
+            <div class="btn">
+                <a href="#" onclick="nextProposal()">Pode perguntar!</a>
+            </div>
+        </div>
+
+        <!-- Tela 8: Proposta -->
         <div id="proposal-1" class="proposal-screen">
-            <div id="Sowrov1" class="sticker"></div>
-            <h1>Lara <span id="JSOrganization-placeholder"></span>! 💖</h1>
-            <p>Quer ser meu(minha) para sempre?</p>
+            <div class="sticker" id="Sowrov1"></div>
+            <h1>Lara! 💖</h1>
+            <p>Quer ser meu par pra todas as aventuras, risadas e preguiças? Ou, resumindo: quer namorar comigo?</p>
             <div class="btn">
                 <a href="#" onclick="showProposal('proposal-yes')">❤️ Sim</a>
                 <a href="#" id="move-random">💔 Não</a>
             </div>
         </div>
 
+        <!-- Tela 9: Final -->
         <div id="proposal-yes" class="proposal-screen">
-            <div id="Sowrov5" class="sticker"></div>
+            <div class="sticker" id="Sowrov5"></div>
             <h1>Você disse SIM! 🥰</h1>
-            <p>Eu te amo, <span id="JSOrganization-placeholder-5"></span>. Vamos tornar a eternidade incrível! 💞</p>
+            <p>Agora somos oficialmente um casal (e a pessoa mais feliz do universo sou eu!)</p>
         </div>
+
     </div>
 
     <script src="script.js"></script>
