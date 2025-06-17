@@ -5,31 +5,38 @@
     font-family: 'Arial', sans-serif;
 }
 body {
-    width: 100%;
+    width: 100vw;
     min-height: 100vh;
+    margin: 0;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     background-color: #ffe5e5;
     overflow: hidden;
 }
 .container {
     display: flex;
     flex-direction: column;
+    justify-content: center;   /* Centraliza verticalmente */
+    align-items: center;       /* Centraliza horizontalmente */
     text-align: center;
-    align-items: center;
-    gap: 20px;
+    min-height: 100vh;         /* Ocupa toda a altura da tela */
+    width: 100vw;
     max-width: 500px;
-    margin: 20px;
+    margin: 0;
+    gap: 20px;
     position: relative;
-    height: auto;
-    min-height: 300px;
+    background: none;
 }
 .sticker {
-    width: 200px;
-    height: 200px;
-    margin: 0 auto;
+    width: 180px;
+    height: 180px;
+    margin: 0 auto 10px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
 h1 {
     color: #e91e63;
     font-size: 2.2rem;

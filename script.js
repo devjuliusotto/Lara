@@ -66,7 +66,7 @@ function tripReact() {
 }
 function truthReact(escolha) {
     document.getElementById('truth-feedback').innerHTML =
-      (escolha === 'verdade') ? 'Juro! 😍' : 'Mentira? Olha… acho que não! 🙈';
+      (escolha === 'verdade') ? 'Acertoouu! ' : 'Mentira? Olha… acho que não! 🙈';
     setTimeout(nextProposal, 1600);
 }
 function saveNote() {
@@ -102,16 +102,9 @@ function animateSticker(screenId) {
 }
 
 // Dicas do topo
-function showLoveTip() {
-    const tips = [
-        "Prepare-se para sentir borboletas no estômago! 🦋",
-        "Deslize pelo amor com um sorriso!",
-        "Responda com o coração, não com a razão.",
-        "Vai ter surpresinha no final! 💝"
-    ];
     const idx = Math.floor(Math.random() * tips.length);
     document.getElementById('love-tip').textContent = tips[idx];
-}
+
 
 // Proposta final
 function showProposal(idToShow) {
