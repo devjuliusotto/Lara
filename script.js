@@ -1,140 +1,74 @@
-// Manter suas animações e estrutura Lottie como antes!
-function loadLottieAnimations() {
-    lottie.loadAnimation({
-        container: document.getElementById('Sowrov11'),
-        renderer: 'svg',
-        loop: true,
-        autoplay: true,
-        path: 'https://botfather.cloud/Assets/Sticker/happy_duck.json'
-    });
-    lottie.loadAnimation({
-        container: document.getElementById('Sowrov12'),
-        renderer: 'svg',
-        loop: true,
-        autoplay: true,
-        path: 'https://botfather.cloud/Assets/Sticker/thinking_duck.json'
-    });
-    lottie.loadAnimation({
-        container: document.getElementById('Sowrov13'),
-        renderer: 'svg',
-        loop: true,
-        autoplay: true,
-        path: 'https://botfather.cloud/Assets/Sticker/love_duck.json'
-    });
-    lottie.loadAnimation({
-        container: document.getElementById('Sowrov14'),
-        renderer: 'svg',
-        loop: true,
-        autoplay: true,
-        path: 'https://botfather.cloud/Assets/Sticker/pleading_face.json'
-    });
-    lottie.loadAnimation({
-        container: document.getElementById('Sowrov15'),
-        renderer: 'svg',
-        loop: true,
-        autoplay: true,
-        path: 'https://botfather.cloud/Assets/Sticker/sad_duck.json'
-    });
-    lottie.loadAnimation({
-        container: document.getElementById('Sowrov16'),
-        renderer: 'svg',
-        loop: true,
-        autoplay: true,
-        path: 'https://botfather.cloud/Assets/Sticker/duck_kiss.json'
-    });
-    lottie.loadAnimation({
-        container: document.getElementById('Sowrov17'),
-        renderer: 'svg',
-        loop: true,
-        autoplay: true,
-        path: 'https://botfather.cloud/Assets/Sticker/loud_cry_duck.json'
-    });
-    lottie.loadAnimation({
-        container: document.getElementById('Sowrov1'),
-        renderer: 'svg',
-        loop: true,
-        autoplay: true,
-        path: 'https://botfather.cloud/Assets/Sticker/loud_cry_duck.json'
-    });
-    lottie.loadAnimation({
-        container: document.getElementById('Sowrov5'),
-        renderer: 'svg',
-        loop: true,
-        autoplay: true,
-        path: 'https://botfather.cloud/Assets/Sticker/jumping_together_with_love.json'
-    });
-}
+// Telas automáticas (sem botão)
+const autoScreens = ["Auto1", "Auto2", "Auto3", "Auto4", "Auto5", "Msg6"];
 
+// Ordem completa das telas
 const proposalOrder = [
-    "Msg1", "Quiz1", "Msg2", "Msg6", "Choice1", "Msg3", "Input1", "Trip1",
-    "Msg4", "Smile1", "Truth1", "proposal-1"
+  ...autoScreens,
+  "Quiz1", "Choice1", "Input1", "Trip1",
+  "Truth1", "Msg3", "Msg4", "proposal-1", "proposal-yes"
 ];
 
 let currentProposalIndex = 0;
-const proposalScreens = document.querySelectorAll('.proposal-screen');
+let autoTimeout = null;
 
-function showProposal(idToShow) {
-    proposalScreens.forEach(screen => screen.style.display = 'none');
-    document.getElementById(idToShow).style.display = 'block';
-
-    // Confetti e animação no SIM
-    if (idToShow === 'proposal-yes') {
-        document.body.style.backgroundColor = '#ffecf0';
-        confetti({ particleCount: 120, spread: 80, origin: { y: 0.7 } });
-    }
+function startJourney() {
+    document.getElementById('StartScreen').style.display = 'none';
+    showScreen(0);
 }
 
-// Avançar telas normalmente
+function showScreen(index) {
+    document.querySelectorAll('.proposal-screen').forEach(el => {
+        el.style.display = 'none';
+        el.classList.remove('fadeInCustom', 'fadeOutCustom');
+    });
+    const currId = proposalOrder[index];
+    const screen = document.getElementById(currId);
+    if (screen) {
+        screen.style.display = 'block';
+        screen.classList.add('fadeInCustom');
+        animateSticker(currId);
+
+        // Avança sozinho após 5 segundos se for auto-step
+        if (autoScreens.includes(currId)) {
+            autoTimeout = setTimeout(() => {
+                screen.classList.remove('fadeInCustom');
+                screen.classList.add('fadeOutCustom');
+                setTimeout(() => nextProposal(), 700);
+            }, 5000);
+        }
+    }
+    showLoveTip();
+}
+
 function nextProposal() {
-    proposalScreens.forEach(screen => screen.style.display = 'none');
+    if (autoTimeout) { clearTimeout(autoTimeout); autoTimeout = null; }
     currentProposalIndex++;
     if (currentProposalIndex < proposalOrder.length) {
-        document.getElementById(proposalOrder[currentProposalIndex]).style.display = 'block';
-        updateProgressBar();
-        showLoveTip();
-        animateSticker(proposalOrder[currentProposalIndex]);
+        showScreen(currentProposalIndex);
     } else {
-        showProposal('proposal-1');
+        showProposal('proposal-yes');
     }
 }
 
-// QUIZ interação
-function quizAnswer(isCorrect, el) {
+// Interações das telas
+function quizAnswer(isCorrect) {
     const feedback = document.getElementById('quiz-feedback');
-    feedback.textContent = isCorrect
-        ? "Aee, você lembra! 😍"
-        : "Quase… mas aposto que nunca vai esquecer agora! 😂";
+    feedback.textContent = isCorrect ? "Aee, você lembra! 😍" : "Quase… mas aposto que nunca vai esquecer agora! 😂";
     setTimeout(nextProposal, 1800);
 }
-
-function tripReact(destino) {
+function choiceAnswer() {
+    document.getElementById('choice-feedback').textContent = "Errado! Os dois são! 😝";
+    setTimeout(nextProposal, 1800);
+}
+function tripReact() {
     document.getElementById('trip-feedback').innerHTML = `Amaria qualquer um, desde que seja com você 💖`;
     setTimeout(nextProposal, 1700);
 }
-
-function smileReact() {
-    document.getElementById('smile-feedback').innerHTML = `Awn  🥰`;
-    setTimeout(nextProposal, 1600);
-}
-
 function truthReact(escolha) {
-    if (escolha === 'verdade') {
-        document.getElementById('truth-feedback').innerHTML = 'Juro! 😍';
-    } else {
-        document.getElementById('truth-feedback').innerHTML = 'Mentira? Olha… acho que não! 🙈';
-    }
+    document.getElementById('truth-feedback').innerHTML =
+      (escolha === 'verdade') ? 'Juro! 😍' : 'Mentira? Olha… acho que não! 🙈';
     setTimeout(nextProposal, 1600);
 }
-
-
-// ESCOLHA boba
-function choiceAnswer(el) {
-    const feedback = document.getElementById('choice-feedback');
-    feedback.textContent = "Errado! Os dois são! 😝";
-    setTimeout(nextProposal, 1800);
-}
-
-// INPUT Recadinho
 function saveNote() {
     const note = document.getElementById('love-note').value;
     const feedback = document.getElementById('note-feedback');
@@ -145,22 +79,78 @@ function saveNote() {
     feedback.textContent = "Agora ficou registrado no meu coração! 💌";
     setTimeout(nextProposal, 1800);
 }
+function continueTogether() {
+    document.getElementById('together-feedback').innerHTML = "Awn, então vamos juntos! 💕";
+    setTimeout(nextProposal, 1600);
+}
 
-// Botão "NÃO" fujão
+// Botão "não" fujão
 function moveRandomEl(element) {
     element.style.position = "absolute";
     element.style.top = Math.floor(Math.random() * 70 + 5) + "%";
     element.style.left = Math.floor(Math.random() * 70 + 5) + "%";
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    proposalScreens.forEach(screen => screen.style.display = 'none');
-    document.getElementById(proposalOrder[0]).style.display = 'block';
-    loadLottieAnimations();
-    updateProgressBar();
-    showLoveTip();
-    animateSticker(proposalOrder[0]);
+// Animação sticker
+function animateSticker(screenId) {
+    const sticker = document.querySelector(`#${screenId} .sticker`);
+    if (sticker) {
+        sticker.classList.remove('heart-pop');
+        void sticker.offsetWidth;
+        sticker.classList.add('heart-pop');
+    }
+}
 
+// Dicas do topo
+function showLoveTip() {
+    const tips = [
+        "Prepare-se para sentir borboletas no estômago! 🦋",
+        "Deslize pelo amor com um sorriso!",
+        "Responda com o coração, não com a razão.",
+        "Vai ter surpresinha no final! 💝"
+    ];
+    const idx = Math.floor(Math.random() * tips.length);
+    document.getElementById('love-tip').textContent = tips[idx];
+}
+
+// Proposta final
+function showProposal(idToShow) {
+    document.querySelectorAll('.proposal-screen').forEach(el => el.style.display = 'none');
+    document.getElementById(idToShow).style.display = 'block';
+    if (idToShow === 'proposal-yes') {
+        document.body.style.backgroundColor = '#ffecf0';
+        confetti({ particleCount: 120, spread: 80, origin: { y: 0.7 } });
+    }
+}
+
+// Lottie
+function loadLottieAnimations() {
+    lottie.loadAnimation({
+        container: document.getElementById('LottieStart'),
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: 'https://botfather.cloud/Assets/Sticker/love_duck.json'
+    });
+    for (let i = 11; i <= 25; i++) {
+        const elem = document.getElementById('Sowrov' + i);
+        if (elem) {
+            lottie.loadAnimation({
+                container: elem,
+                renderer: 'svg',
+                loop: true,
+                autoplay: true,
+                path: 'https://botfather.cloud/Assets/Sticker/happy_duck.json'
+            });
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.proposal-screen').forEach(el => el.style.display = 'none');
+    document.getElementById('StartScreen').style.display = 'block';
+    loadLottieAnimations();
+    showLoveTip();
     const moveRandomBtn = document.getElementById('move-random');
     if (moveRandomBtn) {
         moveRandomBtn.addEventListener('click', (e) => moveRandomEl(e.target));
@@ -168,28 +158,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-window.showProposal = showProposal;
+window.startJourney = startJourney;
 window.nextProposal = nextProposal;
 window.quizAnswer = quizAnswer;
 window.choiceAnswer = choiceAnswer;
+window.tripReact = tripReact;
+window.truthReact = truthReact;
 window.saveNote = saveNote;
-
-function updateProgressBar() {
-    const progress = ((currentProposalIndex + 1) / proposalOrder.length) * 100;
-    document.getElementById('progress-fill').style.width = progress + "%";
-}
-function animateSticker(screenId) {
-  const sticker = document.querySelector(`#${screenId} .sticker`);
-  if (sticker) {
-    sticker.classList.remove('heart-pop');
-    // Força o reflow para reiniciar animação
-    void sticker.offsetWidth;
-    sticker.classList.add('heart-pop');
-  }
-}
-
-// Chama em cada tela nova
-function showLoveTip() {
-  const idx = Math.floor(Math.random() * loveTips.length);
-  document.getElementById('love-tip').textContent = loveTips[idx];
-}
+window.continueTogether = continueTogether;
+window.showProposal = showProposal;
