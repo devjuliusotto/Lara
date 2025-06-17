@@ -36,6 +36,7 @@ function showScreen(index) {
                 setTimeout(() => nextProposal(), 700);
             }, 5000);
         }
+        
     }
     showLoveTip();
 }
@@ -110,6 +111,13 @@ function animateSticker(screenId) {
 function showProposal(idToShow) {
     document.querySelectorAll('.proposal-screen').forEach(el => el.style.display = 'none');
     document.getElementById(idToShow).style.display = 'block';
+    if (idToShow === 'proposal-1') {
+        const moveRandomBtn = document.getElementById('move-random');
+        if (moveRandomBtn && !moveRandomBtn._hasMoveEvent) {
+            moveRandomBtn.addEventListener('mouseenter', (e) => moveRandomEl(e.target));
+            moveRandomBtn._hasMoveEvent = true;
+        }
+    }
     if (idToShow === 'proposal-yes') {
         document.body.style.backgroundColor = '#ffecf0';
         confetti({ particleCount: 120, spread: 80, origin: { y: 0.7 } });
@@ -144,11 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('StartScreen').style.display = 'block';
     loadLottieAnimations();
     showLoveTip();
-    const moveRandomBtn = document.getElementById('move-random');
-    if (moveRandomBtn) {
-        moveRandomBtn.addEventListener('click', (e) => moveRandomEl(e.target));
-        moveRandomBtn.addEventListener('mouseenter', (e) => moveRandomEl(e.target));
-    }
+
 });
 
 window.startJourney = startJourney;
