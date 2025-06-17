@@ -66,7 +66,8 @@ function loadLottieAnimations() {
 }
 
 const proposalOrder = [
-    "Msg1", "Quiz1", "Msg2", "Choice1", "Msg3", "Input1", "Msg4", "proposal-1"
+    "Msg1", "Quiz1", "Msg2", "Msg6", "Choice1", "Msg3", "Input1", "Trip1",
+    "Msg4", "Smile1", "Truth1", "proposal-1"
 ];
 
 let currentProposalIndex = 0;
@@ -89,6 +90,9 @@ function nextProposal() {
     currentProposalIndex++;
     if (currentProposalIndex < proposalOrder.length) {
         document.getElementById(proposalOrder[currentProposalIndex]).style.display = 'block';
+        updateProgressBar();
+        showLoveTip();
+        animateSticker(proposalOrder[currentProposalIndex]);
     } else {
         showProposal('proposal-1');
     }
@@ -102,6 +106,26 @@ function quizAnswer(isCorrect, el) {
         : "Quase… mas aposto que nunca vai esquecer agora! 😂";
     setTimeout(nextProposal, 1800);
 }
+
+function tripReact(destino) {
+    document.getElementById('trip-feedback').innerHTML = `Amaria qualquer um, desde que seja com você 💖`;
+    setTimeout(nextProposal, 1700);
+}
+
+function smileReact() {
+    document.getElementById('smile-feedback').innerHTML = `Awn  🥰`;
+    setTimeout(nextProposal, 1600);
+}
+
+function truthReact(escolha) {
+    if (escolha === 'verdade') {
+        document.getElementById('truth-feedback').innerHTML = 'Juro! 😍';
+    } else {
+        document.getElementById('truth-feedback').innerHTML = 'Mentira? Olha… acho que não! 🙈';
+    }
+    setTimeout(nextProposal, 1600);
+}
+
 
 // ESCOLHA boba
 function choiceAnswer(el) {
@@ -133,6 +157,9 @@ document.addEventListener('DOMContentLoaded', () => {
     proposalScreens.forEach(screen => screen.style.display = 'none');
     document.getElementById(proposalOrder[0]).style.display = 'block';
     loadLottieAnimations();
+    updateProgressBar();
+    showLoveTip();
+    animateSticker(proposalOrder[0]);
 
     const moveRandomBtn = document.getElementById('move-random');
     if (moveRandomBtn) {
@@ -146,3 +173,23 @@ window.nextProposal = nextProposal;
 window.quizAnswer = quizAnswer;
 window.choiceAnswer = choiceAnswer;
 window.saveNote = saveNote;
+
+function updateProgressBar() {
+    const progress = ((currentProposalIndex + 1) / proposalOrder.length) * 100;
+    document.getElementById('progress-fill').style.width = progress + "%";
+}
+function animateSticker(screenId) {
+  const sticker = document.querySelector(`#${screenId} .sticker`);
+  if (sticker) {
+    sticker.classList.remove('heart-pop');
+    // Força o reflow para reiniciar animação
+    void sticker.offsetWidth;
+    sticker.classList.add('heart-pop');
+  }
+}
+
+// Chama em cada tela nova
+function showLoveTip() {
+  const idx = Math.floor(Math.random() * loveTips.length);
+  document.getElementById('love-tip').textContent = loveTips[idx];
+}

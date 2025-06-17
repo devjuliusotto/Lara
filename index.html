@@ -11,13 +11,48 @@
 <body>
     <div class="container">
 
+        <div class="progress-bar">
+            <div id="progress-fill"></div>
+        </div>
+
+        <div class="love-tip" id="love-tip"></div>
+
+
+
         <!-- Tela 1: Frase de abertura -->
         <div id="Msg1" class="proposal-screen active">
             <div class="sticker" id="Sowrov11"></div>
-            <h1>Lara! 💖</h1>
-            <p>Desde que você entrou na minha vida, tudo ficou mais leve, colorido e cheio de sentido.</p>
+            <h1>Oi Lara!  💖</h1>
+            <p>Se você está vendo esse site, é porque cheguei bem em Berlin.</p>
             <div class="btn">
-                <a href="#" onclick="nextProposal()">Amei, pode continuar!</a>
+                <a href="#" onclick="nextProposal()">sem botão</a>
+            </div>
+        </div>
+
+        <div id="Msg1" class="proposal-screen active">
+            <div class="sticker" id="Sowrov11"></div>
+            <h1>Lara!  💖</h1>
+            <p>Possívelmente passei pelo menos 90% do meu tempo dentro do trem pensando em você. </p>
+            <div class="btn">
+                <a href="#" onclick="nextProposal()">sem botão</a>
+            </div>
+        </div>
+
+        <div id="Msg101" class="proposal-screen active">
+            <div class="sticker" id="Sowrov11"></div>
+            <h1>Lara!  💖</h1>
+            <p>Desde que você entrou na minha vida, tudo ficou mais leve, colorido e cheio de sentido... Minha vida se tornou muito mais feliz, alegre e divertida com você</p>
+            <div class="btn">
+                <a href="#" onclick="nextProposal()">sem botão</a>
+            </div>
+        </div>
+
+          <div id="Msg101" class="proposal-screen active">
+            <div class="sticker" id="Sowrov11"></div>
+            <h1>Lara!  💖</h1>
+            <p>Lembro com bastante carinho de cada conversa que já tivemos... </p>
+            <div class="btn">
+                <a href="#" onclick="nextProposal()">sem botão</a>
             </div>
         </div>
 
@@ -28,7 +63,7 @@
             <p>Qual foi o nosso primeiro assunto?</p>
             <div class="btn">
                 <a href="#" onclick="quizAnswer(false, this)">Igrejas na Alemanha</a>
-                <a href="#" onclick="quizAnswer(false, this)">Comida</a>
+                <a href="#" onclick="quizAnswer(false, this)">Comida</a>  
                 <a href="#" onclick="quizAnswer(true, this)">Memórias Afetivas/Neve</a>
             </div>
             <div id="quiz-feedback" style="margin-top:15px;"></div>
@@ -40,9 +75,19 @@
             <h1>Lara! 💖</h1>
             <p>Com você, até os dias nublados têm cor. Você é minha calmaria e minha aventura ao mesmo tempo.</p>
             <div class="btn">
-                <a href="#" onclick="nextProposal()">Quero mais!</a>
+                <a href="#" onclick="nextProposal()">sem botão</a>
             </div>
         </div>
+
+        <div id="Msg6" class="proposal-screen">
+            <div class="sticker" id="Sowrov20"></div>
+            <h1>Lara! 💖</h1>
+            <p>sua risada virou minha trilha sonora favorita.</p>
+            <div class="btn">
+                <a href="#" onclick="nextProposal()">Continua!</a>
+            </div>
+        </div>
+
 
         <!-- Tela 4: Escolha boba -->
         <div id="Choice1" class="proposal-screen">
@@ -52,6 +97,7 @@
             <div class="btn">
                 <a href="#" onclick="choiceAnswer(this)">Eu 😏</a>
                 <a href="#" onclick="choiceAnswer(this)">Você 🥰</a>
+                
             </div>
             <div id="choice-feedback" style="margin-top:15px;"></div>
         </div>
@@ -78,15 +124,45 @@
             <div id="note-feedback" style="margin-top:15px;"></div>
         </div>
 
+        <div id="Trip1" class="proposal-screen">
+            <div class="sticker" id="Sowrov21"></div>
+            <h1>Viagem dos sonhos…</h1>
+            <p>Se tivesse que escolher uma viagem comigo, pra onde seria?</p>
+            <div class="btn">
+                <a href="#" onclick="tripReact('Praia')">Praia 🏖️</a>
+                <a href="#" onclick="tripReact('Montanha')">Montanha 🏔️</a>
+                <a href="#" onclick="tripReact('Netflix')">Netflix em casa 🍿</a>
+            </div>
+            <div id="trip-feedback" style="margin-top:15px;"></div>
+        </div>
+
+        <div id="Truth1" class="proposal-screen">
+            <div class="sticker" id="Sowrov25"></div>
+            <h1>Verdade ou mentira?</h1>
+            <p>Você está sempre em todas minhas orações, por mais que sejam em momentos estranhos como antes de fazer alguma refeição.</p>
+            <div class="btn">
+                <a href="#" onclick="truthReact('verdade')">Verdade!</a>
+                <a href="#" onclick="truthReact('mentira')">Mentira!</a>
+            </div>
+            <div id="truth-feedback" style="margin-top:15px;"></div>
+        </div>
+
+
         <!-- Tela 7: Frase preparação -->
         <div id="Msg4" class="proposal-screen">
             <div class="sticker" id="Sowrov17"></div>
             <h1>Lara! 💖</h1>
-            <p>Agora que já viajei no romantismo, queria te fazer uma pergunta MUITO importante…</p>
+            <p>Agora que já viajei no romantismo e também na mais pura breguice... queria te fazer uma pergunta MUITO importante…</p>
             <div class="btn">
                 <a href="#" onclick="nextProposal()">Pode perguntar!</a>
+                <a href="#" onclick="nextProposal()">Vish, medo! 😬</a>
             </div>
         </div>
+
+
+
+
+
 
         <!-- Tela 8: Proposta -->
         <div id="proposal-1" class="proposal-screen">
@@ -102,9 +178,11 @@
         <!-- Tela 9: Final -->
         <div id="proposal-yes" class="proposal-screen">
             <div class="sticker" id="Sowrov5"></div>
-            <h1>Você disse SIM! 🥰</h1>
-            <p>Agora somos oficialmente um casal (e a pessoa mais feliz do universo sou eu!)</p>
-        </div>
+            <h1>SIM! 🥰</h1>
+            <p>Agora somos oficialmente um casal.<br>Prepare-se para viver muitas aventuras ao meu lado. Eu te amo!</p>
+            <div style="margin-top:30px;">
+            <small>Este site ficará guardado pra sempre como prova do meu amor 💘</small>
+            </div>
 
     </div>
 
