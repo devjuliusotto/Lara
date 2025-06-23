@@ -11,7 +11,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #ffe5e5;
+    background: linear-gradient(135deg, #fff0f5, #ffe5e5);
     overflow: hidden;
 }
 .container {
@@ -26,7 +26,11 @@ body {
     margin: 0;
     gap: 20px;
     position: relative;
-    background: none;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 20px;
 }
 .sticker {
     width: 180px;
@@ -99,21 +103,6 @@ p {
     margin-top: 15px;
     box-shadow: 0 2px 8px rgba(233,30,99,0.10);
 }
-.progress-bar {
-  width: 100%;
-  background: #ffe5e5;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  height: 10px;
-  overflow: hidden;
-  box-shadow: 0 1px 8px #f8bbd0;
-}
-#progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #e91e63 0%, #ff4081 100%);
-  width: 0%;
-  transition: width 0.6s cubic-bezier(.4,2,.2,1);
-}
 .heart-pop {
   animation: heartpop 1s;
 }
@@ -121,14 +110,6 @@ p {
   0% { transform: scale(0.6); opacity: 0; }
   70% { transform: scale(1.25); opacity: 1;}
   100% { transform: scale(1); opacity: 1;}
-}
-.love-tip {
-  font-size: 1.1rem;
-  color: #e91e63;
-  margin-bottom: 8px;
-  animation: fadeInCustom 1s;
-  min-height: 22px;
-  text-align: center;
 }
 @media (max-width: 500px) {
   .container {

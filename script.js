@@ -8,6 +8,7 @@ const proposalOrder = [
   "Truth1", "Msg3", "Msg4", "proposal-1", "proposal-yes"
 ];
 
+
 let currentProposalIndex = 0;
 let autoTimeout = null;
 
@@ -46,7 +47,7 @@ function showScreen(index) {
             }, 5000);
         }
     }
-    showLoveTip();
+    // next step handled after animations
 }
 
 
@@ -111,9 +112,7 @@ function animateSticker(screenId) {
     }
 }
 
-// Dicas do topo
-    const idx = Math.floor(Math.random() * tips.length);
-    document.getElementById('love-tip').textContent = tips[idx];
+//
 
 
 // Proposta final
@@ -130,6 +129,11 @@ function showProposal(idToShow) {
     if (idToShow === 'proposal-yes') {
         document.body.style.backgroundColor = '#ffecf0';
         confetti({ particleCount: 120, spread: 80, origin: { y: 0.7 } });
+        Swal.fire({
+            title: 'SIM! 🥰',
+            text: 'Agora somos oficialmente um casal. Te amo!',
+            confirmButtonText: 'Oba!'
+        });
     }
 }
 
@@ -160,8 +164,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.proposal-screen').forEach(el => el.style.display = 'none');
     document.getElementById('StartScreen').style.display = 'block';
     loadLottieAnimations();
-    showLoveTip();
-
 });
 
 window.startJourney = startJourney;
