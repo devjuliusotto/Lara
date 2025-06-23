@@ -11,6 +11,14 @@ const proposalOrder = [
 let currentProposalIndex = 0;
 let autoTimeout = null;
 
+// Mensagens aleatórias exibidas no topo da tela
+const tips = [
+    "Você me faz sorrir 😊",
+    "Cada momento contigo é especial",
+    "Obrigado por existir 💖",
+    "Meu pensamento favorito é você"
+];
+
 function startJourney() {
     document.getElementById('StartScreen').style.display = 'none';
     showScreen(0);
@@ -112,8 +120,12 @@ function animateSticker(screenId) {
 }
 
 // Dicas do topo
+function showLoveTip() {
+    const loveTipEl = document.getElementById('love-tip');
+    if (!loveTipEl || tips.length === 0) return;
     const idx = Math.floor(Math.random() * tips.length);
-    document.getElementById('love-tip').textContent = tips[idx];
+    loveTipEl.textContent = tips[idx];
+}
 
 
 // Proposta final
